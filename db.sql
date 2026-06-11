@@ -1,13 +1,6 @@
 CREATE DATABASE IF NOT EXISTS github_analyzer;
 USE github_analyzer;
 
-CREATE TABLE IF NOT EXISTS users (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    email VARCHAR(255) UNIQUE NOT NULL,
-    password_hash VARCHAR(255) NOT NULL,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-);
-
 CREATE TABLE IF NOT EXISTS analyzed_profiles (
     id INT AUTO_INCREMENT PRIMARY KEY,
     username VARCHAR(255) UNIQUE NOT NULL,
@@ -17,8 +10,10 @@ CREATE TABLE IF NOT EXISTS analyzed_profiles (
     followers INT DEFAULT 0,
     following INT DEFAULT 0,
     avatar_url VARCHAR(255),
-    analyzed_by INT,
+    total_stars INT DEFAULT 0,
+    total_forks INT DEFAULT 0,
+    account_age_years DECIMAL(5, 2) DEFAULT 0.00,
+    top_languages JSON,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    FOREIGN KEY (analyzed_by) REFERENCES users(id) ON DELETE SET NULL
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
